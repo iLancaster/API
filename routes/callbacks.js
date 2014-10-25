@@ -29,6 +29,7 @@ router.get('/spotify', function(req, res) {
 router.get('/lastfm', function(req, res) {
 
     lfm.authenticate(req.param("token"), function (err, session) {
+        console.log()session
         User.update({
             username:req.param("username")},
             {LastFMToken:req.param("token"),LastFMID:session["username"]},
