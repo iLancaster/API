@@ -23,20 +23,24 @@ router.get('/spotify', function(req, res) {
         })
 });
 router.get('/lastfm', function(req, res) {
-    User.update({
+
+    lfm.authenticate(req.param("token"), function (err, session) {
+        User.update({
             username:req.param("username")},
-        {LastFMToken:req.param("token")},
-        function(err,obj) {
-            if( !err ) {
-                console.log( 'created' );
-                response.writeHeader(200, {"Content-Type": "text/html"});
-                response.write("<button href='javascript:auth.close()'>Done</button>" );
-                response.end();
-                return;
-            } else {
-                console.log( err );
-                return res.send(err);
-            }
-        })
+            {LastFMToken:req.param("token"),LastFMID:session["username"]},
+            function(err,obj) {
+                if( !err ) {
+                    console.log( 'created' );
+                    response.writeHeader(200, {"Content-Type": "text/html"});
+                    response.write("<button href='javascript:auth.close()'>Done</button>" );
+                    response.end();
+                    return;
+                } else {
+                    console.log( err );
+                    return res.send(err);
+                }
+            })
+    });
+
 });
 module.exports = router;
