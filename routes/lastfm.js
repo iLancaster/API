@@ -21,6 +21,8 @@ router.post('/login', function(req, res) {
                     var authUrl = lfm.getAuthenticationUrl({ 'cb' : 'https://ilancaster.herokuapp.com/callback/lastfm?='+obj.username });
                     authUrl = authUrl.replace(/%2F/g,"/");
                     authUrl = authUrl.replace(/%3A/g,":");
+                    authUrl = authUrl.replace(/%3F/g,"?");
+                    authUrl = authUrl.replace(/%3D/g,"=");
                     res.send(authUrl)
                 })
 
