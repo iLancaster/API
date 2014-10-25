@@ -29,5 +29,30 @@ router.post('/login', function(req, res) {
         })
 });
 
+router.get('/getHistory', function(req, res) {
+    User.findOne(
+        {token:req.param("token")},
+        function(err,obj) {
+
+            User.findOne(
+                {token:req.param("token")},
+                function(err,obj) {
+                    lfm.authenticate(obj.LastFMToken, function (err, session) {
+                        console.log("Daniel")
+                        console.log(obj.LastFMToken)
+
+                        console.log(session["username"])
+
+
+                        lfm.user.getRecentTracks({"user":session["username"]}, function(error, sess){
+                            if(error){console.log(error)}
+                            return res.send(sess)
+                        })
+                    });
+                })
+
+        })
+
+});
 
 module.exports = router;
