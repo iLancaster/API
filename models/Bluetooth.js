@@ -2,11 +2,23 @@ var mongoose = require('mongoose')
     ,Schema = mongoose.Schema
 
 bluetoothSchema = new Schema( {
-    username: String,
-    SSID: String,
+    username: {
+        type:String,
+        required: true
+    },
+    SSID: {
+        type:String,
+        required: true
+    },
     CreatedAt: String,
-    Longitude:String,
-    Lattitude:String
+    Longitude:{
+        type:String,
+        required: true
+    },
+    Lattitude:{
+        type:String,
+        required: true
+    }
 }),
 
     BlueTooth = mongoose.model('BlueTooth', bluetoothSchema);
