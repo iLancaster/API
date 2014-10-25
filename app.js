@@ -9,6 +9,10 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var apis = require('./routes/apis');
 
+var mongoose = require ("mongoose"); // The reason for this demo.
+var database = require('./config/server');
+
+
 var app = express();
 
 // view engine setup
@@ -58,5 +62,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
+mongoose.connect(database.url);
 
 module.exports = app;
