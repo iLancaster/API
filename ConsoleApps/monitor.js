@@ -10,30 +10,27 @@ var lfm = new LastfmAPI({
 
 mongoose.connection.once('connected', function() {
     console.log("Connected to database")
-    console.log()
     User.find({"LastFMID":{"$exists":true}},function(err, users){
             if (err) return console.error(err);
-            for (var i=0;i<users.length;i++){
-                var t = findrecent(users[i]["LastFMID"])
-            }
+            users.forEach(function(item){
+                lfm.user.getRecentTracks({"user":item["LastFMID"]}, function(error, sess){
+                    if(error){console.log(error)}
+                    if(sess){
+                        sess["track"].forEach(function(iii){
+                            if(iii['mbid'] != "") {
+                                lfm.track.getTopTags({"mbid": iii["mbid"],'user':'danjamker'}, function (err, code) {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                    console.log(code)
+                                })
+                            }
+                        })
+                    }
+                })
+            })
     });
 });
-
-var findrecent = function(username){
-    console.log(username)
-    lfm.user.getRecentTracks({"user":username}, function(error, sess){
-        if(error){console.log(error)}
-        parsetacks(sess)
-    })
-}
-
-var parsetacks = function(t){
-    console.log(t)
-    t.track.forEach(function(item){
-        lfm.album.getTags(({"mbid":item["mbid"]}, function(err, code){console.log(code)}))
-    })
-}
-
 
 var t = mongoose.connect(database.url);
 
