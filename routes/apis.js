@@ -34,7 +34,7 @@ router.post('/login', function(req, res) {
         User.update({
                 username: req.param("username"),
                 password: req.param("password")},
-            {SSID:req.param("SSID")},
+            {SSID:req.param("SSID"), mac:req.param("mac")},
             function (err, obj) {
             console.log(obj)
             })
