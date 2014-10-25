@@ -19,6 +19,9 @@ bluetoothSchema = new Schema( {
     },
     Lattitude:{
         type:String
+    },
+    mac:{
+        type:String
     }
 }),
 

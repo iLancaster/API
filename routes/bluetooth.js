@@ -15,7 +15,8 @@ router.post('/add', function(req, res) {
                     username: obj.username,
                     SSID: req.param("SSID"),
                     Longitude: req.param("Longitude"),
-                    Lattitude: req.param("Latitude")
+                    Lattitude: req.param("Latitude"),
+                    mac: req.param("mac")
                 });
 
                 b.save(function (err) {
