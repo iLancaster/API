@@ -14,26 +14,29 @@ mongoose.connection.once('connected', function() {
     User.find({"LastFMID":{"$exists":true}},function(err, users){
             if (err) return console.error(err);
             users.forEach(function(item){
+                console.log(item)
                 lfm.user.getRecentTracks({"user":item["LastFMID"]}, function(error, sess){
                     if(error){console.log(error)}
                     if(sess){
                         sess["track"].forEach(function(iii){
+                            console.log(iii)
                             if(iii['mbid'] != "") {
                                 lfm.track.getTopTags({"mbid": iii["mbid"],'user':'danjamker'}, function (err, code) {
                                     if (err) {
                                         console.log(err)
                                     }
                                     var tttt = []
-                                    tttt.push(code['tag'][0]['name'])
-                                    tttt.push(code['tag'][1]['name'])
-                                    tttt.push(code['tag'][2]['name'])
-
+                                    if('tag' in code) {
+                                        tttt.push(code['tag'][0]['name'])
+                                        tttt.push(code['tag'][1]['name'])
+                                        tttt.push(code['tag'][2]['name'])
+                                    }
                                     var m = new Track({
                                         username:item['username'],
                                         trackID: iii["mbid"],
-                                        tags:tttt
+                                        Tags:tttt
                                     })
-
+                                    console.log(code)
                                     m.save( function( err ) {
                                         if( !err ) {
                                             console.log( 'created' );
@@ -41,7 +44,6 @@ mongoose.connection.once('connected', function() {
                                             console.log( err );
                                         }
                                     })
-                                    console.log(code)
                                 })
                             }
                         })

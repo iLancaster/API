@@ -30,13 +30,14 @@ router.post('/register', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-
-    User.findOne({
-        username:req.param("username"),
-        password:req.param("password")},
-        function(err,obj) {
-            res.send(obj);
-        })
+    if(req.param("username")) {
+        User.findOne({
+                username: req.param("username"),
+                password: req.param("password")},
+            function (err, obj) {
+                res.send(obj);
+            })
+    }
 });
 
 router.post('/update', function(req, res) {
