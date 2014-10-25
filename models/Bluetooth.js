@@ -15,12 +15,10 @@ bluetoothSchema = new Schema( {
         default: Date.now
     },
     Longitude:{
-        type:String,
-        required: true
+        type:String
     },
     Lattitude:{
-        type:String,
-        required: true
+        type:String
     }
 }),
 

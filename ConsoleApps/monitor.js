@@ -15,12 +15,12 @@ mongoose.connection.once('connected', function() {
             if (err) return console.error(err);
             for (var i=0;i<users.length;i++){
                 var t = findrecent(users[i]["LastFMID"])
-
             }
     });
 });
 
 var findrecent = function(username){
+    console.log(username)
     lfm.user.getRecentTracks({"user":username}, function(error, sess){
         if(error){console.log(error)}
         parsetacks(sess)
@@ -28,9 +28,12 @@ var findrecent = function(username){
 }
 
 var parsetacks = function(t){
-    for(var k = 0; k < t["track"].length; k++){
-        console.log(t["track"][k]["name"])
-    }
+    console.log(t)
+    t.track.forEach(function(item){
+        lfm.album.getTags(({"mbid":item["mbid"]}, function(err, code){console.log(code)}))
+    })
 }
+
+
 var t = mongoose.connect(database.url);
 
