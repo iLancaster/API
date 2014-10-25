@@ -16,7 +16,7 @@ var mongoose = require ("mongoose"); // The reason for this demo.
 var database = require('./config/server');
 
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8100,https://ilancaster.herokuapp.com');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
 
