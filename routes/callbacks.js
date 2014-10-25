@@ -19,5 +19,18 @@ router.get('/spotify', function(req, res) {
             }
         })
 });
-
+router.get('/lastfm', function(req, res) {
+    User.update({
+            username:"apple"},
+        {SpotifyToken:req.param("token")},
+        function(err,obj) {
+            if( !err ) {
+                console.log( 'created' );
+                return res.send( "Done" );
+            } else {
+                console.log( err );
+                return res.send(err);
+            }
+        })
+});
 module.exports = router;

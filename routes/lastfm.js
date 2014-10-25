@@ -14,7 +14,10 @@ router.post('/login', function(req, res) {
     User.findOne(
         {token:req.param("token")},
         function(err,obj) {
-            var authUrl = lfm.getAuthenticationUrl({ 'cb' : 'https://ilancaster.herokuapp.com/callback/lastfm?username=' });
+            var authUrl = lfm.getAuthenticationUrl({ 'cb' : 'https://ilancaster.herokuapp.com/callback/lastfm' });
+            authUrl = authUrl.replace(/%2F/g,"/");
+            authUrl = authUrl.replace(/%3A/g,":");
+
             res.send(authUrl)
         })
 });
