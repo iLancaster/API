@@ -39,7 +39,9 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
