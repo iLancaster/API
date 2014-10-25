@@ -10,6 +10,14 @@ musicTrackSchema = new Schema( {
         type:String,
         required: true
     },
+    trackName: {
+        type:String,
+        required: true
+    },
+    trackArtist: {
+        type:String,
+        required: true
+    },
     listendAt: {
         type: Date,
         default: Date.now

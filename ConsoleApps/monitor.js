@@ -32,7 +32,9 @@ mongoose.connection.once('connected', function() {
                                     var m = new Track({
                                         username:item['username'],
                                         trackID: iii["mbid"],
-                                        Tags:tttt
+                                        Tags:tttt,
+                                        trackName:iii["name"],
+                                        trackArtist:iii["artist"]["#text"]
                                     })
                                         m.save(function (err) {
                                             if (!err) {
