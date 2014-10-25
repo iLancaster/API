@@ -27,6 +27,6 @@ musicTrackSchema = new Schema( {
     }]
 }),
 
-    musicTrack = mongoose.model('musicTrack', musicTrackSchema);
+musicTrack = mongoose.model('musicTrack', musicTrackSchema);
 
 module.exports = musicTrack;
