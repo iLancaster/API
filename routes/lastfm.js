@@ -29,31 +29,4 @@ router.post('/login', function(req, res) {
         })
 });
 
-router.get('/getHistory', function(req, res) {
-    User.findOne(
-        {token:req.param("token")},
-        function(err,obj) {
-            User.findOne(
-                {token:req.param("token")},
-                function(err,obj) {
-                    lfm.authenticate(obj.LastFMToken, function (err, session) {
-                        lfm.user.getRecentTracks({"user":session["username"]}, function(error, sess){
-                            if(error){console.log(error)}
-                            return res.send(sess)
-                        })
-                    });
-                })
-        })
-});
-
-router.get('/getGetArtiest', function(req, res) {
-
-    lfm.artist.getInfo({"artist":req.param("q")}, function(err, artist){
-        if(err){console.log(err)}
-        return res.send(artist)
-    });
-
-
-});
-
 module.exports = router;
