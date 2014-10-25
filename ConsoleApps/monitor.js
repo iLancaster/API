@@ -23,10 +23,15 @@ mongoose.connection.once('connected', function() {
                                     if (err) {
                                         console.log(err)
                                     }
+                                    var tttt = []
+                                    tttt.push(code['tag'][0]['name'])
+                                    tttt.push(code['tag'][1]['name'])
+                                    tttt.push(code['tag'][2]['name'])
+
                                     var m = new Track({
                                         username:item['username'],
                                         trackID: iii["mbid"],
-                                        tags:[]
+                                        tags:tttt
                                     })
 
                                     m.save( function( err ) {

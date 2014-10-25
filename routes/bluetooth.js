@@ -20,7 +20,7 @@ router.post('/add', function(req, res) {
             b.save( function( err ) {
                 if( !err ) {
                     console.log( 'created' );
-                    return res.send( u );
+                    return res.send( b );
                 } else {
                     console.log( err );
                     return res.send(err);
