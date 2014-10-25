@@ -39,4 +39,29 @@ router.post('/login', function(req, res) {
         })
 });
 
+router.post('/update', function(req, res) {
+
+    var u = new User({
+        username: req.param("username"),
+        password: req.param("password"),
+        spotifyID: req.param("spotifyID"),
+        lastFMID: req.param("lastFMID"),
+        SSID: req.param("SSID")
+    });
+
+    User.update({
+            username:req.param("username"),
+            password:req.param("password")},
+        u,
+        function(err,obj) {
+            if( !err ) {
+                console.log( 'created' );
+                return res.send( u );
+            } else {
+                console.log( err );
+                return res.send(err);
+            }
+        })
+});
+
 module.exports = router;
