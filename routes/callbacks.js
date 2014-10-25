@@ -12,7 +12,10 @@ router.get('/spotify', function(req, res) {
         function(err,obj) {
             if( !err ) {
                 console.log( 'created' );
-                return res.send( "Done" );
+                res.writeHeader(200, {"Content-Type": "text/html"});
+                res.write("<button href='javascript:auth.close()'>Done</button>" );
+                res.end();
+                return;
             } else {
                 console.log( err );
                 return res.send(err);
@@ -26,7 +29,10 @@ router.get('/lastfm', function(req, res) {
         function(err,obj) {
             if( !err ) {
                 console.log( 'created' );
-                return res.send( "Done" );
+                response.writeHeader(200, {"Content-Type": "text/html"});
+                response.write("<button href='javascript:auth.close()'>Done</button>" );
+                response.end();
+                return;
             } else {
                 console.log( err );
                 return res.send(err);
