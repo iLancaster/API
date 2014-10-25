@@ -28,4 +28,15 @@ try {
     }
         //
 });
+
+router.post('/search', function(req, res) {
+
+    var authorizeURL = spotifyApi.searchArtists(req.param("q")).then(function(data) {
+        console.log('Search tracks by "Love" in the artist name', data["artists"]["items"]);
+    }, function(err) {
+        console.log('Something went wrong!', err);
+    });
+    res.send(authorizeURL)
+
+});
 module.exports = router;
