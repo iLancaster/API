@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var apis = require('./routes/apis');
 var bluetooth = require('./routes/bluetooth');
+var spotify = require('./routes/spotify');
+var callback = require('./routes/callbacks');
 
 var mongoose = require ("mongoose"); // The reason for this demo.
 var database = require('./config/server');
@@ -32,6 +34,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/api', apis);
 app.use('/bluetooth', bluetooth);
+app.use('/spotify', spotify);
+app.use('/callback', callback);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

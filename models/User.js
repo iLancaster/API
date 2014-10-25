@@ -22,6 +22,10 @@ userSchema = new Schema( {
         type:String,
         required: false
     },
+    SpotifyToken: {
+        type:String,
+        required: false
+    },
     LastFMID: {
         type:String,
         required: false
