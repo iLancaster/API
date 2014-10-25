@@ -30,7 +30,23 @@ router.post('/register', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-    if(req.param("username")) {
+    if(req.param("SSID")) {
+        User.update({
+                username: req.param("username"),
+                password: req.param("password")},
+            {SSID:req.param("SSID")},
+            function (err, obj) {
+            console.log(obj)
+            })
+
+        User.findOne({
+                username: req.param("username"),
+                password: req.param("password")},
+            function (err, obj) {
+                res.send(obj);
+            })
+    }
+    else if (req.param("username")){
         User.findOne({
                 username: req.param("username"),
                 password: req.param("password")},

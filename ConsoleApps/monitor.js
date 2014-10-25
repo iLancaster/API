@@ -14,13 +14,11 @@ mongoose.connection.once('connected', function() {
     User.find({"LastFMID":{"$exists":true}},function(err, users){
             if (err) return console.error(err);
             users.forEach(function(item){
-                console.log(item)
                 lfm.user.getRecentTracks({"user":item["LastFMID"]}, function(error, sess){
                     if(error){console.log(error)}
                     if(sess){
                         sess["track"].forEach(function(iii){
-                            console.log(iii)
-                            if(iii['mbid'] != "") {
+                            if(iii['mbid'] != "" && '@attr' in iii) {
                                 lfm.track.getTopTags({"mbid": iii["mbid"],'user':'danjamker'}, function (err, code) {
                                     if (err) {
                                         console.log(err)
@@ -36,14 +34,13 @@ mongoose.connection.once('connected', function() {
                                         trackID: iii["mbid"],
                                         Tags:tttt
                                     })
-                                    console.log(code)
-                                    m.save( function( err ) {
-                                        if( !err ) {
-                                            console.log( 'created' );
-                                        } else {
-                                            console.log( err );
-                                        }
-                                    })
+                                        m.save(function (err) {
+                                            if (!err) {
+                                                console.log('created');
+                                            } else {
+                                                console.log(err);
+                                            }
+                                        })
                                 })
                             }
                         })
