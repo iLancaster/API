@@ -21,7 +21,10 @@ musicTrackSchema = new Schema( {
     Lattitude:{
         type:String,
         required: true
-    }
+    },
+    Tags:[{
+        type: String
+    }]
 }),
 
     musicTrack = mongoose.model('musicTrack', musicTrackSchema);
