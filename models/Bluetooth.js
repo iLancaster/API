@@ -22,6 +22,6 @@ bluetoothSchema = new Schema( {
     }
 }),
 
-    BlueTooth = mongoose.model('BlueTooth', bluetoothSchema);
+BlueTooth = mongoose.model('BlueTooth', bluetoothSchema);
 
 module.exports = BlueTooth;

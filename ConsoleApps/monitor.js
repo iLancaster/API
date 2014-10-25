@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var database = require('../config/server');
 var User = require('../models/User');
+var Track = require('../models/MusicTrack');
 var LastfmAPI = require('lastfmapi');
 
 var lfm = new LastfmAPI({
@@ -22,6 +23,19 @@ mongoose.connection.once('connected', function() {
                                     if (err) {
                                         console.log(err)
                                     }
+                                    var m = new Track({
+                                        username:item['username'],
+                                        trackID: iii["mbid"],
+                                        tags:[]
+                                    })
+
+                                    m.save( function( err ) {
+                                        if( !err ) {
+                                            console.log( 'created' );
+                                        } else {
+                                            console.log( err );
+                                        }
+                                    })
                                     console.log(code)
                                 })
                             }
