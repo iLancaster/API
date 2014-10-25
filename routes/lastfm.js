@@ -47,7 +47,11 @@ router.get('/getHistory', function(req, res) {
 });
 
 router.get('/getGetArtest', function(req, res) {
-    lfm.
-});
+    spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
+        .then(function(data) {
+            console.log('Artist information', data);
+        }, function(err) {
+            console.error(err);
+        });});
 
 module.exports = router;
