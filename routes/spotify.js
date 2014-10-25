@@ -15,13 +15,17 @@ var spotifyApi = new SpotifyWebApi({
 
 /* GET home page. */
 router.post('/login', function(req, res) {
-
+try {
     User.findOne(
-        {token:req.param("token")},
-        function(err,obj) {
+        {token: req.param("token")},
+        function (err, obj) {
             var authorizeURL = spotifyApi.createAuthorizeURL(scopes, obj.username);
             res.send(authorizeURL)
         })
-        //res.send("ERROR")
+}
+    catch (ex){
+        res.send("ERROR")
+    }
+        //
 });
 module.exports = router;
