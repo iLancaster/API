@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
             {token: req.param("token")},
             function (err, obj) {
 
-                PlayList.findOne({username:obj.username},function(err,obj){
+                PlayList.find({username:obj.username},function(err,obj){
                     res.send(obj);
                 })
 
@@ -28,11 +28,11 @@ router.post('/', function(req, res) {
         User.findOne(
             {token: req.param("token")},
             function (err, obj) {
-                var p = new PlayList({username:obj.username, playlistName:req.param("name")})
+                var p = new PlayList({username:obj.username, playlistName:req.param("name"), playlistID:"363636"})
                 p.save( function( err ) {
                     if( !err ) {
                         console.log( 'created' );
-                        return res.send( u );
+                        return res.send( p );
                     } else {
                         console.log( err );
                         return res.send(err);
