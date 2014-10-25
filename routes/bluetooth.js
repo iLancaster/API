@@ -7,27 +7,28 @@ var User = require('../models/User')
 
 /* GET home page. */
 router.post('/add', function(req, res) {
-    User.findOne(
-        {token:req.param("token")},
-        function(err,obj) {
-            var b = new BlueTooth({
-                username: obj.username,
-                SSID: req.param("SSID"),
-                Longitude: req.param("Longitude"),
-                Lattitude: req.param("Lattitude")
-            });
+    if(req.param("token")) {
+        User.findOne(
+            {token: req.param("token")},
+            function (err, obj) {
+                var b = new BlueTooth({
+                    username: obj.username,
+                    SSID: req.param("SSID"),
+                    Longitude: req.param("Longitude"),
+                    Lattitude: req.param("Lattitude")
+                });
 
-            b.save( function( err ) {
-                if( !err ) {
-                    console.log( 'created' );
-                    return res.send( b );
-                } else {
-                    console.log( err );
-                    return res.send(err);
-                }
-            });
-        })
-
+                b.save(function (err) {
+                    if (!err) {
+                        console.log('created');
+                        return res.send(b);
+                    } else {
+                        console.log(err);
+                        return res.send(err);
+                    }
+                });
+            })
+    }
 
 });
 
