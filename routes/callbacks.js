@@ -36,9 +36,9 @@ router.get('/lastfm', function(req, res) {
             function(err,obj) {
                 if( !err ) {
                     console.log( 'created' );
-                    response.writeHeader(200, {"Content-Type": "text/html"});
-                    response.write("<button href='javascript:auth.close()'>Done</button>" );
-                    response.end();
+                    res.writeHeader(200, {"Content-Type": "text/html"});
+                    res.write("<button href='javascript:auth.close()'>Done</button>" );
+                    res.end();
                     return;
                 } else {
                     console.log( err );
