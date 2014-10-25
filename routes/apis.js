@@ -5,7 +5,7 @@ var crypto = require('crypto');
 var User = require('../models/User')
 
 /* GET home page. */
-router.post('/auth', function(req, res) {
+router.post('/register', function(req, res) {
 
     var generatedtoken = crypto.randomBytes(64).toString('hex');
 
@@ -27,6 +27,16 @@ router.post('/auth', function(req, res) {
         }
     });
 
+});
+
+router.post('/login', function(req, res) {
+
+    User.findOne({
+        username:req.param("username"),
+        password:req.param("password")},
+        function(err,obj) {
+            res.send(obj);
+        })
 });
 
 module.exports = router;
