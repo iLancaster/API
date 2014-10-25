@@ -22,7 +22,7 @@ router.get('/spotify', function(req, res) {
 router.get('/lastfm', function(req, res) {
     User.update({
             username:"apple"},
-        {SpotifyToken:req.param("token")},
+        {LastFMToken:req.param("token")},
         function(err,obj) {
             if( !err ) {
                 console.log( 'created' );

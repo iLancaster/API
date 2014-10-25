@@ -30,6 +30,10 @@ userSchema = new Schema( {
         type:String,
         required: false
     },
+    LastFMToken: {
+        type:String,
+        required: false
+    },
     SSID: {
         type:String,
         required: false
