@@ -46,12 +46,14 @@ router.get('/getHistory', function(req, res) {
         })
 });
 
-router.get('/getGetArtest', function(req, res) {
-    spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
-        .then(function(data) {
-            console.log('Artist information', data);
-        }, function(err) {
-            console.error(err);
-        });});
+router.get('/getGetArtiest', function(req, res) {
+
+    lfm.artist.getInfo({"artist":req.param("q")}, function(err, artist){
+        if(err){console.log(err)}
+        return res.send(artist)
+    });
+
+
+});
 
 module.exports = router;
