@@ -43,13 +43,7 @@ router.get('/spotify', function(req, res) {
 
             console.log("here")
             console.log(obj.SpotifyToken)
-            spotifyApi.clientCredentialsGrant()
-                .then(function(data) {
-                    console.log('The access token expires in ' + data['expires_in']);
-                    console.log('The access token is ' + data['access_token']);
 
-                    // Save the access token so that it's used in future calls
-                    spotifyApi.setAccessToken(data['access_token']);
                     spotifyApi.authorizationCodeGrant(obj.SpotifyToken)
                         .then(function(data) {
                             console.log('Retrieved access token', data['access_token']);
@@ -80,9 +74,6 @@ router.get('/spotify', function(req, res) {
                             console.log('Something went wrong', err);
                         });
 
-                }, function(err) {
-                    console.log('Something went wrong when retrieving an access token', err);
-                });
 
         })
 });
