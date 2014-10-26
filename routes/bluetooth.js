@@ -149,7 +149,7 @@ router.post('/add', function(req, res) {
 
                     User.findOne({mac:req.param("mac")},function(err, data){
                         PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg) {
-                            Track.findOne({username:obj.username},null, {sort: {listendAt: -1 }}, function(errr, daata){
+                            Track.findOne({username:data.username},null, {sort: {listendAt: -1 }}, function(errr, daata){
                             console.log(daata)
                                 var t = "love"
                                 if(daata != null){
