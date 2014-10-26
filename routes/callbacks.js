@@ -40,7 +40,7 @@ router.get('/spotify', function(req, res) {
 
 
 
-                                spotifyApi.authorizationCodeGrant(req.param("code"))
+                                spotifyApi.authorizationCodeGrant("AQA_JYxHorW2t-bLicwQlKhz3Bm7f59n7f3cB_NGliV7KbKOQf8WlVY5pzGDHhH3SoAcGQpWijTj2QFhbvPKrRX_G-YMmoizZSxxDSER8sYb5pSP75sh8Z2s7ijyhOxfrv-2a3jVMCPkQUFf0ZRRuDxKygrWWDtjLEXgoxAhPKy9e1qW4RcIIhRamEQuJnkfEiYmZydDzrQS6E8ns1mVzCEXaIy1zmItpqirxufe10oTl9gqliZnBAcSSO5DSyhAqOYTjmZv2H1mHPo")
                                     .then(function(data) {
                                         console.log('Retrieved access token', data['access_token']);
                                         User.update({username:req.param("state")},{access_token_spotify:data['access_token']}, function(err,obj){console.log(obj)})
