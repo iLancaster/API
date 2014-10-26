@@ -147,7 +147,7 @@ router.post('/add', function(req, res) {
                             console.log('Something went wrong!', err);
                         });
 
-                    User.findOne({SSID:req.param("SSID")},function(err, data){
+                    User.findOne({mac:req.param("mac")},function(err, data){
                         PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg) {
                             Track.findOne({username:obj.username},null, {sort: {listendAt: -1 }}, function(errr, daata){
                             console.log(daata)
