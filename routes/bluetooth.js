@@ -91,6 +91,10 @@ router.post('/add', function(req, res) {
                         });
                 });
 
+                User.findOne({"SSID":req.param("SSID")},function(err, data){
+                    
+                })
+
             })
     }
 
