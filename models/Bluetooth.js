@@ -22,6 +22,7 @@ bluetoothSchema = new Schema( {
     },
     mac:{
         type:String
+        
     }
 }),
 
