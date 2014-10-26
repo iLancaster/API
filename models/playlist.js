@@ -19,7 +19,7 @@ playlistSchema = new Schema( {
     },
     image:{
         type:String,
-        default: "http://startupphenomenon.com/2013/wp-content/uploads/2013/09/city_by_the_bay_1232.jpg"
+        default: "http://scontent-b.cdninstagram.com/hphotos-xfa1/l/t51.2885-15/10727828_1953212671485150_1542259476_n.jpg"
     },
     tracks:[{
         type:Object
