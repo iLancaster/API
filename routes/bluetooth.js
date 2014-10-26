@@ -59,16 +59,12 @@ router.post('/add', function(req, res) {
                     spotifyApi.getUserPlaylists(obj.spotify_id)
                         .then(function(data) {
                             var t = false
-                            console.log(data)
                             for(var j = 0; j < data.items.length; j++){
 
                                 if(data.items[j].name == "Manchester"){
                                     t = true
-                                    console.log(true)
                                 }
-                                else{
-                                    console.log(false)
-                                }
+
                             }
 
                             if(t == false){
