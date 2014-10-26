@@ -67,7 +67,7 @@ router.post('/add', function(req, res) {
                                         }
                                         //console.log('The playlist contains these tracks', data);
                                     }, function(err) {
-                                        console.log('Something went wrong!', err);
+                                        console.log('Something went wrong6!', err);
                                     });
                                 if(data.items[j].name == "Manchester"){
                                     t = true
@@ -93,7 +93,7 @@ router.post('/add', function(req, res) {
                                         });
                                     }, function(err) {
 
-                                        console.log('Something went wrong!', err);
+                                        console.log('Something went wrong2!', err);
                                     });
                             }
                             console.log(req.param("mac"))
@@ -120,7 +120,7 @@ router.post('/add', function(req, res) {
                                             });
                                         });
                                     }, function(err) {
-                                        console.log('Something went wrong!', err);
+                                        console.log('Something went wrong3!', err);
                                     });
                             }
 
@@ -147,7 +147,7 @@ router.post('/add', function(req, res) {
                                                 });
                                         });
                                     }, function(err) {
-                                        console.log('Something went wrong!', err);
+                                        console.log('Something went wrong4!', err);
                                     });
                             }
                         },function(err) {
@@ -171,7 +171,7 @@ router.post('/add', function(req, res) {
                                     });
                                     console.log('Search tracks by "Love" in the artist name', data.tracks.items[1].id);
                                 }, function(err) {
-                                    console.log('Something went wrong!', err);
+                                    console.log('Something went wrong5!', err);
                                 });
                         })
 
