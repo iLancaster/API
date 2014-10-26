@@ -60,7 +60,7 @@ router.get('/spotify', function(req, res) {
                             console.log('The access token expires in ' + data['expires_in']);
                             console.log('The access token is ' + data['access_token']);
                             ///THIS TOKEN NEEDS TO BE STORED!!!!!
-                            User.update({username: obj.username}, {access_token_spotify: data['access_token']}, function (obj, err) {
+                            User.update({username: obj.username}, {access_token_spotify: data['access_token'], spotify_id:data['id']}, function (obj, err) {
                                 console.log(obj)
                             })
                             // Use the access token to retrieve information about the user connected to it

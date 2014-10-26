@@ -45,6 +45,9 @@ userSchema = new Schema( {
     access_token_spotify:{
         type:String,
         required: false
+    },
+    spotify_id:{
+        type:String
     }
 }),
 
