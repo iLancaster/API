@@ -37,6 +37,14 @@ userSchema = new Schema( {
     SSID: {
         type:String,
         required: false
+    },
+    currentCity:{
+        type:String,
+        required: false
+    },
+    access_token_spotify:{
+        type:String,
+        required: false
     }
 }),
 

@@ -9,23 +9,21 @@ var lfm = new LastfmAPI({
     'secret' : '732324ecd90ac58fa0c86016e5ce8539'
 });
 
-mongoose.connection.once('connected', function() {
-    console.log("Connected to database")
-    check();
-    while(true) {
-        setTimeout(check, 60000);
-    }
-});
+
 
 var check = function(){
     User.find({"LastFMID":{"$exists":true}},function(err, users){
         if (err) return console.error(err);
         users.forEach(function(item){
             lfm.user.getRecentTracks({"user":item["LastFMID"]}, function(error, sess){
+                console.log(item["LastFMID"])
                 if(error){console.log(error)}
                 if(sess){
                     sess["track"].forEach(function(iii){
                         if(iii['mbid'] != "" && '@attr' in iii) {
+                            console.log(iii["artist"]["#text"])
+                            console.log(iii['name'])
+                            console.log("   ---  ")
                             lfm.track.getTopTags({"mbid": iii["mbid"],'user':'danjamker'}, function (err, code) {
                                 if (err) {
                                     console.log(err)
@@ -58,5 +56,16 @@ var check = function(){
         })
     });
 }
+
+mongoose.connection.once('connected', function() {
+    console.log("Connected to database")
+    check()
+    console.log("Above")
+    setInterval(check, 60000);
+    console.log("Bellow")
+
+
+});
+
 var t = mongoose.connect(database.url);
 

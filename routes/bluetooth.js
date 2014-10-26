@@ -1,9 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
+var geocoder = require('geocoder');
+var SpotifyWebApi = require('spotify-web-api-node');
+
 
 var BlueTooth = require('../models/Bluetooth')
 var User = require('../models/User')
+
+var spotifyApi = new SpotifyWebApi({
+    clientId : '21a623aba4924c7aba89b3408a09a489',
+    clientSecret : 'df3303f8073845909e00acb7723efcf1',
+    redirectUri : 'https://ilancaster.herokuapp.com/callback/spotify'
+});
 
 /* GET home page. */
 router.post('/add', function(req, res) {
@@ -11,6 +20,11 @@ router.post('/add', function(req, res) {
         User.findOne(
             {token: req.param("token")},
             function (err, obj) {
+
+                console.log("here")
+                console.log(obj.SpotifyToken)
+
+
                 var b = new BlueTooth({
                     username: obj.username,
                     SSID: req.param("SSID"),
@@ -28,6 +42,17 @@ router.post('/add', function(req, res) {
                         return res.send(err);
                     }
                 });
+                geocoder.reverseGeocode(req.param("Latitude"),req.param("Longitude"), function(err, rus) {
+                    User.update({
+                        username: obj.username},
+                        {currentCity:rus.results[2]},
+                        function (err, obj) {
+                        })
+
+
+
+                });
+
             })
     }
 

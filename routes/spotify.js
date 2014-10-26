@@ -5,7 +5,7 @@ var SpotifyWebApi = require('spotify-web-api-node');
 
 var User = require('../models/User')
 
-var scopes = ['user-read-private', 'user-read-email']
+var scopes = ['user-read-private', 'user-read-email','playlist-read-private','playlist-modify-public','playlist-modify-private','streaming','user-library-read','user-library-modify']
 
 var spotifyApi = new SpotifyWebApi({
     clientId : '21a623aba4924c7aba89b3408a09a489',
