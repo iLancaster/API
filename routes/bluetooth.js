@@ -108,7 +108,7 @@ router.post('/add', function(req, res) {
                                             } else {
                                                 console.log( err );
                                             }
-                                            spotifyApi.addTracksToPlaylist(obj.spotify_id, data.playlistID, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+                                            spotifyApi.addTracksToPlaylist(obj.spotify_id, data.id, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
                                                 .then(function(data) {
                                                     console.log('Added tracks to playlist!');
                                                 }, function(err) {
@@ -138,7 +138,7 @@ router.post('/add', function(req, res) {
                                             pusher.trigger(obj.username, 'playlist', {
                                                 "message": "New Play List Created"
                                             });
-                                            spotifyApi.addTracksToPlaylist(obj.spotify_id, data.playlistID, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+                                            spotifyApi.addTracksToPlaylist(obj.spotify_id, data.id, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
                                                 .then(function(data) {
                                                     console.log('Added tracks to playlist!');
                                                 }, function(err) {
