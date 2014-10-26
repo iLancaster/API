@@ -85,7 +85,7 @@ router.post('/add', function(req, res) {
                                                 console.log( err );
                                             }
                                             pusher.trigger("test", 'my_event', {
-                                                "message": "New Play List Created"
+                                                "message": "Manchester Playlist has been added to Spotify"
                                             });
                                         });
                                     }, function(err) {
@@ -108,7 +108,7 @@ router.post('/add', function(req, res) {
                                             }
                                             spotifyApi.addTracksToPlaylist(obj.spotify_id, data.id, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
                                                 .then(function(data) {
-                                                    console.log('Added tracks to playlist!');
+                                                    console.log('Track Added to Manchester Picadily Playlist');
                                                 }, function(err) {
                                                     console.log('Something went wrdddddong!', err);
                                                 });
@@ -134,7 +134,7 @@ router.post('/add', function(req, res) {
                                                 console.log( err );
                                             }
                                             pusher.trigger("test", 'my_event', {
-                                                "message": "New Play List Created"
+                                                "message": "London Euston Playlist Added"
                                             });
                                             spotifyApi.addTracksToPlaylist(obj.spotify_id, data.id, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
                                                 .then(function(data) {
@@ -164,7 +164,7 @@ router.post('/add', function(req, res) {
                                             console.log('Something went wrdddddong!', err);
                                         });
                                     pusher.trigger("test", 'my_event', {
-                                        "message": "New Song Added to Playlist"
+                                        "message": "New Song Added to Manchester Playlist"
                                     });
                                     console.log('Search tracks by "Love" in the artist name', data.tracks.items[1].id);
                                 }, function(err) {
