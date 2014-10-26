@@ -3,6 +3,7 @@ var router = express.Router();
 var crypto = require('crypto');
 var geocoder = require('geocoder');
 var SpotifyWebApi = require('spotify-web-api-node');
+var PlayList = require('../models/playlist')
 
 
 var BlueTooth = require('../models/Bluetooth')
@@ -49,23 +50,38 @@ router.post('/add', function(req, res) {
                         })
                     // Set the access token
                     spotifyApi.setAccessToken(obj.access_token_spotify);
-                    console.log(obj.access_token_spotify)
                     spotifyApi.getUserPlaylists(obj.spotify_id)
                         .then(function(data) {
+                            console.log(data)
                             var t = false
                             for(var j = 0; j < data.items.length; j++){
-                                if(data.items[j].name == rus.results[2]){
-                                    console.log(data.items[j].name)
+                                spotifyApi.getPlaylistTracks(obj.spotify_id, data.items[j].id, { 'offset' : 1, 'limit' : 5, 'fields' : 'items' })
+                                    .then(function(data) {
+                                        for(var jj = 0; jj < data.items.length; jj++) {
+                                            console.log(data.items[jj])
+                                        }
+                                        console.log('The playlist contains these tracks', data);
+                                    }, function(err) {
+                                        console.log('Something went wrong!', err);
+                                    });
+                                if(data.items[j].name == rus.results[0].address_components[2].short_name){
                                     t = true
                                 }
                             }
                             if(t == false){
 
-                                console.log(rrr.currentCity)
                                 spotifyApi.setAccessToken(obj.access_token_spotify);
                                 spotifyApi.createPlaylist(obj.spotify_id, rus.results[0].address_components[2].short_name, { 'public' : false })
                                     .then(function(data) {
                                         console.log('Created playlist!');
+                                        var p = new PlayList({username:obj.username, playlistName:rus.results[0].address_components[2].short_name, playlistID:data.id, playistURL:data.href})
+                                        p.save( function( err ) {
+                                            if( !err ) {
+                                                console.log( 'created' );
+                                            } else {
+                                                console.log( err );
+                                            }
+                                        });
                                     }, function(err) {
                                         console.log('Something went wrong!', err);
                                     });
@@ -73,9 +89,6 @@ router.post('/add', function(req, res) {
                         },function(err) {
                             console.log('Something went wrong!', err);
                         });
-
-
-
                 });
 
             })

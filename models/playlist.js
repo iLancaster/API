@@ -13,7 +13,16 @@ playlistSchema = new Schema( {
     playlistName: {
         type:String,
         required: true
-    }
+    },
+    playistURL:{
+        type:String
+    },
+    image:{
+        type:String
+    },
+    tracks:[{
+        type:Object
+    }]
 }),
 
     playlist = mongoose.model('playlist', playlistSchema);
