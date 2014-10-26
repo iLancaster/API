@@ -68,7 +68,8 @@ router.get('/spotify', function(req, res) {
                         })
                         .then(function (data) {
                             User.update({username: obj.username}, {spotify_id:data['id']}, function (obj, err) {
-
+                                console.log(obj)
+                            })
                                 // "Retrieved data for Faruk Sahin"
                             console.log('Retrieved data for ' + data['display_name']);
                             console.log(data);
