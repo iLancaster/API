@@ -2,12 +2,23 @@ var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
 var LastfmAPI = require('lastfmapi');
+var SpotifyWebApi = require('spotify-web-api-node');
 
 var User = require('../models/User')
 var lfm = new LastfmAPI({
     'api_key' : 'c73cf13a70773cbeec50be565e3036cc',
     'secret' : '732324ecd90ac58fa0c86016e5ce8539'
 });
+
+var scopes = ['user-read-private', 'user-read-email','playlist-read-private','playlist-modify-public','playlist-modify-private','streaming','user-library-read','user-library-modify']
+
+var spotifyApi = new SpotifyWebApi({
+    clientId : '21a623aba4924c7aba89b3408a09a489',
+    clientSecret : 'a6338157c9bb5ac9c71924cb2940e1a7',
+    redirectUri : 'https://ilancaster.herokuapp.com/callback/spotify'
+});
+
+
 /* GET home page. */
 router.get('/spotify', function(req, res) {
     User.update({
