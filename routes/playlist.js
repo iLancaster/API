@@ -60,7 +60,7 @@ router.get('/p', function(req, res) {
             function (err, obj) {
                 spotifyApi.setAccessToken(obj.access_token_spotify);
 
-                spotifyApi.getPlaylistTracks(obj.spotify_id, req.param("id"), { 'offset' : 1, 'limit' : 5, 'fields' : 'items' })
+                spotifyApi.getPlaylistTracks(obj.spotify_id, req.param("id"), { 'offset' : 1, 'limit' : 100, 'fields' : 'items' })
                     .then(function(data) {
                         return res.send(data)
                         console.log('The playlist contains these tracks', data);
