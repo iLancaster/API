@@ -59,7 +59,7 @@ router.get('/spotify', function(req, res) {
                             console.log('The access token expires in ' + data['expires_in']);
                             console.log('The access token is ' + data['access_token']);
                             ///THIS TOKEN NEEDS TO BE STORED!!!!!
-
+                            User.update({username:obj.username},{access_token_spotify:data['access_token']},function(obj, err){console.log(obj)})
                             // Use the access token to retrieve information about the user connected to it
                             return spotifyApi.getMe();
                         })
@@ -83,34 +83,6 @@ router.get('/spotify', function(req, res) {
                 }, function(err) {
                     console.log('Something went wrong when retrieving an access token', err);
                 });
-
-            var b = new BlueTooth({
-                username: obj.username,
-                SSID: req.param("SSID"),
-                Longitude: req.param("Longitude"),
-                Lattitude: req.param("Latitude"),
-                mac: req.param("mac")
-            });
-
-            b.save(function (err) {
-                if (!err) {
-                    console.log('created');
-                    return res.send(b);
-                } else {
-                    console.log(err);
-                    return res.send(err);
-                }
-            });
-            geocoder.reverseGeocode(req.param("Latitude"),req.param("Longitude"), function(err, rus) {
-                User.update({
-                        username: obj.username},
-                    {currentCity:rus.results[2]},
-                    function (err, obj) {
-                    })
-
-
-
-            });
 
         })
 });
