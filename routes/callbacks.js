@@ -14,9 +14,10 @@ var scopes = ['user-read-private', 'user-read-email','playlist-read-private','pl
 
 var spotifyApi = new SpotifyWebApi({
     clientId : '21a623aba4924c7aba89b3408a09a489',
-    clientSecret : 'a6338157c9bb5ac9c71924cb2940e1a7',
+    clientSecret : 'df3303f8073845909e00acb7723efcf1',
     redirectUri : 'https://ilancaster.herokuapp.com/callback/spotify'
 });
+
 
 
 /* GET home page. */
@@ -44,7 +45,7 @@ router.get('/spotify', function(req, res) {
             console.log("here")
             console.log(obj.SpotifyToken)
 
-                    spotifyApi.authorizationCodeGrant(obj.SpotifyToken)
+                    spotifyApi.authorizationCodeGrant(req.param("code"))
                         .then(function(data) {
                             console.log('Retrieved access token', data['access_token']);
 
@@ -59,6 +60,7 @@ router.get('/spotify', function(req, res) {
                         })
                         .then(function(data) {
                             // "Retrieved data for Faruk Sahin"
+                            console.log(data)
                             console.log('Retrieved data for ' + data['display_name']);
 
                             // "Email is farukemresahin@gmail.com"
