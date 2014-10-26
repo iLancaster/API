@@ -61,17 +61,13 @@ router.post('/add', function(req, res) {
                             var t = false
                             console.log(data)
                             for(var j = 0; j < data.items.length; j++){
-                                spotifyApi.getPlaylistTracks(obj.spotify_id, data.items[j].id, { 'offset' : 1, 'limit' : 5, 'fields' : 'items' })
-                                    .then(function(data) {
-                                        for(var jj = 0; jj < data.items.length; jj++) {
-                                            //console.log(data.items[jj])
-                                        }
-                                        //console.log('The playlist contains these tracks', data);
-                                    }, function(err) {
-                                        console.log('Something went wrong6!', err);
-                                    });
+
                                 if(data.items[j].name == "Manchester"){
                                     t = true
+                                    console.log(true)
+                                }
+                                else{
+                                    console.log(false)
                                 }
                             }
 
