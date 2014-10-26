@@ -94,6 +94,48 @@ router.post('/add', function(req, res) {
                                         console.log('Something went wrong!', err);
                                     });
                             }
+
+                            if(req.param("mac") == "D3:49:79:E1:98:21"){
+                                spotifyApi.setAccessToken(obj.access_token_spotify);
+                                spotifyApi.createPlaylist(obj.spotify_id, "Manchester Picadiliy", { 'public' : false })
+                                    .then(function(data) {
+                                        console.log('Created playlist!');
+                                        var p = new PlayList({username:obj.username, playlistName:"Manchester Picadiliy", playlistID:data.id, playistURL:data.href})
+                                        p.save( function( err ) {
+                                            if( !err ) {
+                                                console.log( 'created' );
+                                            } else {
+                                                console.log( err );
+                                            }
+                                            pusher.trigger(obj.username, 'playlist', {
+                                                "message": "New Play List Created"
+                                            });
+                                        });
+                                    }, function(err) {
+                                        console.log('Something went wrong!', err);
+                                    });
+                            }
+
+                            if(req.param("mac") == "F8:EE:D9:F9:85:F7"){
+                                spotifyApi.setAccessToken(obj.access_token_spotify);
+                                spotifyApi.createPlaylist(obj.spotify_id, "London Euston", { 'public' : false })
+                                    .then(function(data) {
+                                        console.log('Created playlist!');
+                                        var p = new PlayList({username:obj.username, playlistName:"London Euston", playlistID:data.id, playistURL:data.href})
+                                        p.save( function( err ) {
+                                            if( !err ) {
+                                                console.log( 'created' );
+                                            } else {
+                                                console.log( err );
+                                            }
+                                            pusher.trigger(obj.username, 'playlist', {
+                                                "message": "New Play List Created"
+                                            });
+                                        });
+                                    }, function(err) {
+                                        console.log('Something went wrong!', err);
+                                    });
+                            }
                         },function(err) {
                             console.log('Something went wrong!', err);
                         });
@@ -117,9 +159,6 @@ router.post('/add', function(req, res) {
                                 }, function(err) {
                                     console.log('Something went wrong!', err);
                                 });
-
-                            //})
-
                         })
 
                     })
