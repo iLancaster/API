@@ -18,7 +18,8 @@ playlistSchema = new Schema( {
         type:String
     },
     image:{
-        type:String
+        type:String,
+        default: "http://startupphenomenon.com/2013/wp-content/uploads/2013/09/city_by_the_bay_1232.jpg"
     },
     tracks:[{
         type:Object

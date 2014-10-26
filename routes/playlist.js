@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
 
 });
 
-router.post('/p', function(req, res) {
+router.get('/p', function(req, res) {
     if(req.param("token")) {
         User.findOne(
             {token: req.param("token")},
