@@ -13,6 +13,7 @@ var spotify = require('./routes/spotify');
 var callback = require('./routes/callbacks');
 var lastfm = require('./routes/lastfm');
 var playlist = require('./routes/playlist');
+var stats = require('./routes/stats');
 
 var mongoose = require ("mongoose"); // The reason for this demo.
 var database = require('./config/server');
@@ -47,6 +48,7 @@ app.use('/spotify', spotify);
 app.use('/callback', callback);
 app.use('/lastfm', lastfm);
 app.use('/playlist', playlist);
+app.use('/stats', stats);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

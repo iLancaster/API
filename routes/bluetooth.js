@@ -4,6 +4,7 @@ var crypto = require('crypto');
 var geocoder = require('geocoder');
 var SpotifyWebApi = require('spotify-web-api-node');
 var PlayList = require('../models/playlist')
+var Track = require('../models/MusicTrack');
 
 
 var BlueTooth = require('../models/Bluetooth')
@@ -89,11 +90,24 @@ router.post('/add', function(req, res) {
                         },function(err) {
                             console.log('Something went wrong!', err);
                         });
+//TODO Test
+//                    User.findOne({SSID:req.param("SSID")},function(err, data){
+//                        PlayList.findOne({username:data.username,playlistName:rus.results[0]},function(errre,hghg){
+//                            Track.findOne({username:data.username}, function(errr, daata){
+//                                spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+//                                    .then(function(data) {
+//                                        console.log('Added tracks to playlist!');
+//                                    }, function(err) {
+//                                        console.log('Something went wrong!', err);
+//                                    });
+//                            })
+//
+//                        })
+//
+//                    })
                 });
 
-                User.findOne({"SSID":req.param("SSID")},function(err, data){
-                    
-                })
+
 
             })
     }
