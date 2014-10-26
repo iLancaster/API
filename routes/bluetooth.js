@@ -152,24 +152,26 @@ router.post('/add', function(req, res) {
                         });
 
                     User.findOne({SSID:req.param("SSID")},function(err, data){
-                        PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg){
-                            //Track.findOne({username:data.username}, function(errr, daata){
+                        PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg) {
+                            Track.findOne({username:data.username}, function(errr, daata){
+                            console.log(daata)
                             spotifyApi.setAccessToken(obj.access_token_spotify);
                             spotifyApi.searchTracks('artist:Love')
-                                .then(function(data) {
-                                    spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:"+data.tracks.items[1].id,"spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
-                                        .then(function(data) {
+                                .then(function (data) {
+                                    spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:" + data.tracks.items[1].id, "spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+                                        .then(function (data) {
                                             console.log('Added tracks to playlist!');
-                                        }, function(err) {
+                                        }, function (err) {
                                             console.log('Something went wrdddddong!', err);
                                         });
                                     pusher.trigger("test", 'my_event', {
                                         "message": "New Song Added to Manchester Playlist"
                                     });
                                     console.log('Search tracks by "Love" in the artist name', data.tracks.items[1].id);
-                                }, function(err) {
+                                }, function (err) {
                                     console.log('Something went wrong5!', err);
                                 });
+                        });
                         })
 
                     })
