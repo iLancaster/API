@@ -5,10 +5,17 @@ var geocoder = require('geocoder');
 var SpotifyWebApi = require('spotify-web-api-node');
 var PlayList = require('../models/playlist')
 var Track = require('../models/MusicTrack');
+var Pusher = require('pusher');
 
 
 var BlueTooth = require('../models/Bluetooth')
 var User = require('../models/User')
+
+var pusher = new Pusher({
+    appId: '94244',
+    key: '3d38642e0aafbfda1f2c',
+    secret: '31cbd5bf0e3517e3324d'
+});
 
 var spotifyApi = new SpotifyWebApi({
     clientId : '21a623aba4924c7aba89b3408a09a489',
@@ -23,8 +30,6 @@ router.post('/add', function(req, res) {
             {token: req.param("token")},
             function (err, obj) {
 
-                console.log("here")
-                console.log(obj.SpotifyToken)
 
                 var b = new BlueTooth({
                     username: obj.username,
@@ -53,15 +58,14 @@ router.post('/add', function(req, res) {
                     spotifyApi.setAccessToken(obj.access_token_spotify);
                     spotifyApi.getUserPlaylists(obj.spotify_id)
                         .then(function(data) {
-                            console.log(data)
                             var t = false
                             for(var j = 0; j < data.items.length; j++){
                                 spotifyApi.getPlaylistTracks(obj.spotify_id, data.items[j].id, { 'offset' : 1, 'limit' : 5, 'fields' : 'items' })
                                     .then(function(data) {
                                         for(var jj = 0; jj < data.items.length; jj++) {
-                                            console.log(data.items[jj])
+                                            //console.log(data.items[jj])
                                         }
-                                        console.log('The playlist contains these tracks', data);
+                                        //console.log('The playlist contains these tracks', data);
                                     }, function(err) {
                                         console.log('Something went wrong!', err);
                                     });
@@ -82,6 +86,9 @@ router.post('/add', function(req, res) {
                                             } else {
                                                 console.log( err );
                                             }
+                                            pusher.trigger(obj.username, 'playlist', {
+                                                "message": "New Play List Created"
+                                            });
                                         });
                                     }, function(err) {
                                         console.log('Something went wrong!', err);
@@ -92,14 +99,24 @@ router.post('/add', function(req, res) {
                         });
 
                     User.findOne({SSID:req.param("SSID")},function(err, data){
-                        PlayList.findOne({username:data.username,playlistName:"Manchester"},function(errre,hghg){
+                        PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg){
                             //Track.findOne({username:data.username}, function(errr, daata){
-                                spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
-                                    .then(function(data) {
-                                        console.log('Added tracks to playlist!');
-                                    }, function(err) {
-                                        console.log('Something went wrong!', err);
+                            spotifyApi.searchTracks('artist:Love')
+                                .then(function(data) {
+                                    spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:"+data.tracks.items[1].id,"spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+                                        .then(function(data) {
+                                            console.log('Added tracks to playlist!');
+                                        }, function(err) {
+                                            console.log('Something went wrdddddong!', err);
+                                        });
+                                    pusher.trigger(obj.username, 'song', {
+                                        "message": "New Song Added to Playlist"
                                     });
+                                    console.log('Search tracks by "Love" in the artist name', data.tracks.items[1].id);
+                                }, function(err) {
+                                    console.log('Something went wrong!', err);
+                                });
+
                             //})
 
                         })
