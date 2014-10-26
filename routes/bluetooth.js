@@ -73,6 +73,7 @@ router.post('/add', function(req, res) {
                                     t = true
                                 }
                             }
+
                             if(t == false){
 
                                 spotifyApi.setAccessToken(obj.access_token_spotify);
@@ -94,7 +95,7 @@ router.post('/add', function(req, res) {
                                         console.log('Something went wrong!', err);
                                     });
                             }
-
+                            console.log(req.param("mac"))
                             if(req.param("mac") == "D3:49:79:E1:98:21"){
                                 spotifyApi.setAccessToken(obj.access_token_spotify);
                                 spotifyApi.createPlaylist(obj.spotify_id, "Manchester Picadiliy", { 'public' : false })
@@ -107,6 +108,12 @@ router.post('/add', function(req, res) {
                                             } else {
                                                 console.log( err );
                                             }
+                                            spotifyApi.addTracksToPlaylist(obj.spotify_id, data.playlistID, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+                                                .then(function(data) {
+                                                    console.log('Added tracks to playlist!');
+                                                }, function(err) {
+                                                    console.log('Something went wrdddddong!', err);
+                                                });
                                             pusher.trigger(obj.username, 'playlist', {
                                                 "message": "New Play List Created"
                                             });
@@ -131,6 +138,12 @@ router.post('/add', function(req, res) {
                                             pusher.trigger(obj.username, 'playlist', {
                                                 "message": "New Play List Created"
                                             });
+                                            spotifyApi.addTracksToPlaylist(obj.spotify_id, data.playlistID, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+                                                .then(function(data) {
+                                                    console.log('Added tracks to playlist!');
+                                                }, function(err) {
+                                                    console.log('Something went wrdddddong!', err);
+                                                });
                                         });
                                     }, function(err) {
                                         console.log('Something went wrong!', err);
