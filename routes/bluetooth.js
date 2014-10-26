@@ -46,7 +46,7 @@ router.post('/add', function(req, res) {
                 geocoder.reverseGeocode(req.param("Latitude"),req.param("Longitude"), function(err, rus) {
                     User.update({
                         username: obj.username},
-                        {currentCity:rus.results[0].address_components[2].short_name},
+                        {currentCity:"Manchester"},
                         function (err, obj) {
                         })
                     // Set the access token
@@ -65,17 +65,17 @@ router.post('/add', function(req, res) {
                                     }, function(err) {
                                         console.log('Something went wrong!', err);
                                     });
-                                if(data.items[j].name == rus.results[0].address_components[2].short_name){
+                                if(data.items[j].name == "Manchester"){
                                     t = true
                                 }
                             }
                             if(t == false){
 
                                 spotifyApi.setAccessToken(obj.access_token_spotify);
-                                spotifyApi.createPlaylist(obj.spotify_id, rus.results[0].address_components[2].short_name, { 'public' : false })
+                                spotifyApi.createPlaylist(obj.spotify_id, "Manchester", { 'public' : false })
                                     .then(function(data) {
                                         console.log('Created playlist!');
-                                        var p = new PlayList({username:obj.username, playlistName:rus.results[0].address_components[2].short_name, playlistID:data.id, playistURL:data.href})
+                                        var p = new PlayList({username:obj.username, playlistName:"Manchester", playlistID:data.id, playistURL:data.href})
                                         p.save( function( err ) {
                                             if( !err ) {
                                                 console.log( 'created' );
