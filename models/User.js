@@ -48,6 +48,9 @@ userSchema = new Schema( {
     },
     spotify_id:{
         type:String
+    },
+    mac:{
+        type:String
     }
 }),
 
