@@ -44,27 +44,31 @@ router.post('/add', function(req, res) {
                 geocoder.reverseGeocode(req.param("Latitude"),req.param("Longitude"), function(err, rus) {
                     User.update({
                         username: obj.username},
-                        {currentCity:rus.results[2]},
+                        {currentCity:rus.results[0].address_components[2].short_name},
                         function (err, obj) {
                         })
-
                     // Set the access token
                     spotifyApi.setAccessToken(obj.access_token_spotify);
+                    console.log(obj.access_token_spotify)
                     spotifyApi.getUserPlaylists(obj.spotify_id)
                         .then(function(data) {
                             var t = false
                             for(var j = 0; j < data.items.length; j++){
                                 if(data.items[j].name == rus.results[2]){
+                                    console.log(data.items[j].name)
                                     t = true
                                 }
-                                if(t == false){
-                                    spotifyApi.createPlaylist(obj.spotify_id, rus.results[2], { 'public' : true })
-                                        .then(function(data) {
-                                            console.log('Created playlist!');
-                                        }, function(err) {
-                                            console.log('Something went wrong!', err);
-                                        });
-                                }
+                            }
+                            if(t == false){
+
+                                console.log(rrr.currentCity)
+                                spotifyApi.setAccessToken(obj.access_token_spotify);
+                                spotifyApi.createPlaylist(obj.spotify_id, rus.results[0].address_components[2].short_name, { 'public' : false })
+                                    .then(function(data) {
+                                        console.log('Created playlist!');
+                                    }, function(err) {
+                                        console.log('Something went wrong!', err);
+                                    });
                             }
                         },function(err) {
                             console.log('Something went wrong!', err);
