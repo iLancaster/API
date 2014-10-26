@@ -92,6 +92,7 @@ router.post('/add', function(req, res) {
                                             });
                                         });
                                     }, function(err) {
+
                                         console.log('Something went wrong!', err);
                                     });
                             }
