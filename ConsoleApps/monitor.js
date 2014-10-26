@@ -15,8 +15,8 @@ var check = function(){
     User.find({"LastFMID":{"$exists":true}},function(err, users){
         if (err) return console.error(err);
         users.forEach(function(item){
+            console.log(item['LastFMID'])
             lfm.user.getRecentTracks({"user":item["LastFMID"]}, function(error, sess){
-                console.log(item["LastFMID"])
                 if(error){console.log(error)}
                 if(sess){
                     sess["track"].forEach(function(iii){
@@ -62,7 +62,7 @@ mongoose.connection.once('connected', function() {
     console.log("Connected to database")
     check()
     console.log("Above")
-    setInterval(check, 60000);
+    setInterval(check, 6000);
     console.log("Bellow")
 
 
