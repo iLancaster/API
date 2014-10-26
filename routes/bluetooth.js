@@ -59,6 +59,7 @@ router.post('/add', function(req, res) {
                     spotifyApi.getUserPlaylists(obj.spotify_id)
                         .then(function(data) {
                             var t = false
+                            console.log(data)
                             for(var j = 0; j < data.items.length; j++){
                                 spotifyApi.getPlaylistTracks(obj.spotify_id, data.items[j].id, { 'offset' : 1, 'limit' : 5, 'fields' : 'items' })
                                     .then(function(data) {
