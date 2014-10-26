@@ -147,33 +147,36 @@ router.post('/add', function(req, res) {
                             console.log('Something went wrong!', err);
                         });
 
-                    User.findOne({mac:req.param("mac")},function(err, data){
-                        PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg) {
-                            Track.findOne({username:data.username},null, {sort: {listendAt: -1 }}, function(errr, daata){
-                            console.log(daata)
+                    User.findOne({mac:req.param("mac")},function(err, data) {
+                        PlayList.findOne({username: obj.username, playlistName: "Manchester"}, function (errre, hghg) {
+                            if (data) {
+
+                            Track.findOne({username: data.username}, null, {sort: {listendAt: -1 }}, function (errr, daata) {
+                                console.log(daata)
                                 var t = "love"
-                                if(daata != null){
+                                if (daata != null) {
                                     t = daata.trackArtist
                                 }
-                            spotifyApi.setAccessToken(obj.access_token_spotify);
-                            spotifyApi.searchTracks('artist:'+t)
-                                .then(function (data) {
-                                    spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:" + data.tracks.items[1].id])
-                                        .then(function (data) {
-                                            console.log('Added tracks to '+obj.username+' playlist!');
-                                        }, function (err) {
-                                            console.log('Something went wrdddddong!', err);
+                                spotifyApi.setAccessToken(obj.access_token_spotify);
+                                spotifyApi.searchTracks('artist:' + t)
+                                    .then(function (data) {
+                                        spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:" + data.tracks.items[1].id])
+                                            .then(function (data) {
+                                                console.log('Added tracks to ' + obj.username + ' playlist!');
+                                            }, function (err) {
+                                                console.log('Something went wrdddddong!', err);
+                                            });
+                                        pusher.trigger("test", 'my_event', {
+                                            "message": "New Song Added to Manchester Playlist"
                                         });
-                                    pusher.trigger("test", 'my_event', {
-                                        "message": "New Song Added to Manchester Playlist"
-                                    });
-                                    console.log('Search tracks by "Love" in the artist name', data.tracks.items[1].id);
-                                }, function (err) {
-                                    console.log('Something went wrong5!', err);
+                                        console.log('Search tracks by "Love" in the artist name', data.tracks.items[1].id);
+                                    }, function (err) {
+                                        console.log('Something went wrong5!', err);
 
-                                });
-                        });
-                        })
+                                    });
+                            });
+                        }
+                    })
 
                     })
                 });
