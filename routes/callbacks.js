@@ -29,7 +29,8 @@ router.get('/spotify', function(req, res) {
                 console.log( 'created' );
                 res.writeHeader(200, {"Content-Type": "text/html"});
                 res.write("<button href='javascript:auth.close()'>Done</button>" );
-                res.end();
+                return res.end();
+
             } else {
                 console.log( err );
                 return res.send(err);
@@ -81,7 +82,7 @@ router.get('/spotify', function(req, res) {
 
                 }, function(err) {
                     console.log('Something went wrong when retrieving an access token', err);
-                });;
+                });
 
             var b = new BlueTooth({
                 username: obj.username,
