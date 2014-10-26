@@ -101,6 +101,7 @@ router.post('/add', function(req, res) {
                     User.findOne({SSID:req.param("SSID")},function(err, data){
                         PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg){
                             //Track.findOne({username:data.username}, function(errr, daata){
+                            spotifyApi.setAccessToken(obj.access_token_spotify);
                             spotifyApi.searchTracks('artist:Love')
                                 .then(function(data) {
                                     spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:"+data.tracks.items[1].id,"spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])

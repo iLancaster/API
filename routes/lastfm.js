@@ -11,23 +11,18 @@ var lfm = new LastfmAPI({
 
 /* GET home page. */
 router.post('/login', function(req, res) {
-    User.findOne(
-        {token:req.param("token")},
-        function(err,obj) {
-
-            User.findOne(
-                {token:req.param("token")},
-                function(err,obj) {
-                    var authUrl = lfm.getAuthenticationUrl({ 'cb' : 'https://ilancaster.herokuapp.com/callback/lastfm?username='+obj.username });
-                    authUrl = authUrl.replace(/%2F/g,"/");
-                    authUrl = authUrl.replace(/%3A/g,":");
-                    authUrl = authUrl.replace(/%3F/g,"?");
-                    authUrl = authUrl.replace(/%3D/g,"=");
-                    res.send(authUrl)
-
-                })
-
-        })
+    if(req.param("token")) {
+        User.findOne(
+            {token: req.param("token")},
+            function (err, obj) {
+                var authUrl = lfm.getAuthenticationUrl({ 'cb': 'https://ilancaster.herokuapp.com/callback/lastfm?username=' + obj.username });
+                authUrl = authUrl.replace(/%2F/g, "/");
+                authUrl = authUrl.replace(/%3A/g, ":");
+                authUrl = authUrl.replace(/%3F/g, "?");
+                authUrl = authUrl.replace(/%3D/g, "=");
+                res.send(authUrl)
+            })
+    }
 });
 
 module.exports = router;
