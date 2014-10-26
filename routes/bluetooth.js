@@ -59,6 +59,7 @@ router.post('/add', function(req, res) {
                     spotifyApi.getUserPlaylists(obj.spotify_id)
                         .then(function(data) {
                             var t = false
+                            console.log(data)
                             for(var j = 0; j < data.items.length; j++){
 
                                 if(data.items[j].name == "Manchester"){
@@ -118,6 +119,7 @@ router.post('/add', function(req, res) {
                             }
 
                             if(req.param("mac") == "F8:EE:D9:F9:85:F7"){
+                               console.log("IN HERE F8:EE:D9:F9:85:F7");
                                 spotifyApi.setAccessToken(obj.access_token_spotify);
                                 spotifyApi.createPlaylist(obj.spotify_id, "London Euston", { 'public' : false })
                                     .then(function(data) {
@@ -150,13 +152,14 @@ router.post('/add', function(req, res) {
                     User.findOne({mac:req.param("mac")},function(err, data) {
                         PlayList.findOne({username: obj.username, playlistName: "Manchester"}, function (errre, hghg) {
                             if (data) {
-
+                            console.log("Getting MAC for "+req.param("mac"))
                             Track.findOne({username: data.username}, null, {sort: {listendAt: -1 }}, function (errr, daata) {
                                 console.log(daata)
                                 var t = "love"
                                 if (daata != null) {
                                     t = daata.trackArtist
                                 }
+                                console.log("t ======== "+t)
                                 spotifyApi.setAccessToken(obj.access_token_spotify);
                                 spotifyApi.searchTracks('artist:' + t)
                                     .then(function (data) {
