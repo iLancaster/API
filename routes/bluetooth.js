@@ -151,8 +151,12 @@ router.post('/add', function(req, res) {
                         PlayList.findOne({username:obj.username,playlistName:"Manchester"},function(errre,hghg) {
                             Track.findOne({username:obj.username}, function(errr, daata){
                             console.log(daata)
+                                var t = "love"
+                                if(daata != null){
+                                    t = daata.trackArtist
+                                }
                             spotifyApi.setAccessToken(obj.access_token_spotify);
-                            spotifyApi.searchTracks('artist:'+daata.trackArtist)
+                            spotifyApi.searchTracks('artist:'+t)
                                 .then(function (data) {
                                     spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:" + data.tracks.items[1].id, "spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
                                         .then(function (data) {
