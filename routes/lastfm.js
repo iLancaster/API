@@ -24,6 +24,7 @@ router.post('/login', function(req, res) {
                     authUrl = authUrl.replace(/%3F/g,"?");
                     authUrl = authUrl.replace(/%3D/g,"=");
                     res.send(authUrl)
+
                 })
 
         })
