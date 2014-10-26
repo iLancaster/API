@@ -87,7 +87,7 @@ router.post('/add', function(req, res) {
                                             } else {
                                                 console.log( err );
                                             }
-                                            pusher.trigger(obj.username, 'playlist', {
+                                            pusher.trigger("test", 'my_event', {
                                                 "message": "New Play List Created"
                                             });
                                         });
@@ -114,7 +114,7 @@ router.post('/add', function(req, res) {
                                                 }, function(err) {
                                                     console.log('Something went wrdddddong!', err);
                                                 });
-                                            pusher.trigger(obj.username, 'playlist', {
+                                            pusher.trigger("test", 'my_event', {
                                                 "message": "New Play List Created"
                                             });
                                         });
@@ -135,7 +135,7 @@ router.post('/add', function(req, res) {
                                             } else {
                                                 console.log( err );
                                             }
-                                            pusher.trigger(obj.username, 'playlist', {
+                                            pusher.trigger("test", 'my_event', {
                                                 "message": "New Play List Created"
                                             });
                                             spotifyApi.addTracksToPlaylist(obj.spotify_id, data.id, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
@@ -165,7 +165,7 @@ router.post('/add', function(req, res) {
                                         }, function(err) {
                                             console.log('Something went wrdddddong!', err);
                                         });
-                                    pusher.trigger(obj.username, 'song', {
+                                    pusher.trigger("test", 'my_event', {
                                         "message": "New Song Added to Playlist"
                                     });
                                     console.log('Search tracks by "Love" in the artist name', data.tracks.items[1].id);
