@@ -158,9 +158,9 @@ router.post('/add', function(req, res) {
                             spotifyApi.setAccessToken(obj.access_token_spotify);
                             spotifyApi.searchTracks('artist:'+t)
                                 .then(function (data) {
-                                    spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:" + data.tracks.items[1].id, "spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+                                    spotifyApi.addTracksToPlaylist(obj.spotify_id, hghg.playlistID, ["spotify:track:" + data.tracks.items[1].id])
                                         .then(function (data) {
-                                            console.log('Added tracks to playlist!');
+                                            console.log('Added tracks to '+obj.username+' playlist!');
                                         }, function (err) {
                                             console.log('Something went wrdddddong!', err);
                                         });
